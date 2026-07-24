@@ -191,10 +191,10 @@ func _draw_spiky_shape(image: Image, cx: int, cy: int, radius: int, color: Color
 
 func _draw_triangle(image: Image, p1: Vector2, p2: Vector2, p3: Vector2, color: Color) -> void:
 	# Simple filled triangle drawing
-	var min_x = mini(p1.x, p2.x, p3.x)
-	var max_x = maxi(p1.x, p2.x, p3.x)
-	var min_y = mini(p1.y, p2.y, p3.y)
-	var max_y = maxi(p1.y, p2.y, p3.y)
+	var min_x = min(min(p1.x, p2.x), p3.x)
+	var max_x = max(max(p1.x, p2.x), p3.x)
+	var min_y = min(min(p1.y, p2.y), p3.y)
+	var max_y = max(max(p1.y, p2.y), p3.y)
 	
 	for x in range(int(min_x), int(max_x) + 1):
 		for y in range(int(min_y), int(max_y) + 1):
