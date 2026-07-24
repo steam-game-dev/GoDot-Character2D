@@ -43,30 +43,88 @@ extends Node2D
 @onready var second_hand_tool: Sprite2D = $BodyRoot/Tools/SecondHandTool
 
 var character_data: CharacterData
-var placeholder_color: Color = Color.GRAY
+
+# Sprite texture paths
+const SPRITE_PATHS = {
+	"body": "res://character_creator/assets/sprites/body.png",
+	"head": "res://character_creator/assets/sprites/head.png",
+	"neck": "res://character_creator/assets/sprites/neck.png",
+	"face": "res://character_creator/assets/sprites/face.png",
+	"upper_arm_l": "res://character_creator/assets/sprites/upper_arm_l.png",
+	"upper_arm_r": "res://character_creator/assets/sprites/upper_arm_r.png",
+	"lower_arm_l": "res://character_creator/assets/sprites/lower_arm_l.png",
+	"lower_arm_r": "res://character_creator/assets/sprites/lower_arm_r.png",
+	"hand_l": "res://character_creator/assets/sprites/hand_l.png",
+	"hand_r": "res://character_creator/assets/sprites/hand_r.png",
+	"upper_leg_l": "res://character_creator/assets/sprites/upper_leg_l.png",
+	"upper_leg_r": "res://character_creator/assets/sprites/upper_leg_r.png",
+	"lower_leg_l": "res://character_creator/assets/sprites/lower_leg_l.png",
+	"lower_leg_r": "res://character_creator/assets/sprites/lower_leg_r.png",
+	"foot_l": "res://character_creator/assets/sprites/foot_l.png",
+	"foot_r": "res://character_creator/assets/sprites/foot_r.png",
+	"hair_base": "res://character_creator/assets/sprites/hair_base.png",
+	"hair_flow": "res://character_creator/assets/sprites/hair_flow.png",
+	"eye_l": "res://character_creator/assets/sprites/eye_l.png",
+	"eye_r": "res://character_creator/assets/sprites/eye_r.png",
+	"nose": "res://character_creator/assets/sprites/nose.png",
+	"mouth": "res://character_creator/assets/sprites/mouth.png",
+	"tattoo_body": "res://character_creator/assets/sprites/tattoo_body.png",
+	"tattoo_face": "res://character_creator/assets/sprites/tattoo_face.png",
+	"sword": "res://character_creator/assets/sprites/sword.png",
+	"shield": "res://character_creator/assets/sprites/shield.png",
+	"staff": "res://character_creator/assets/sprites/staff.png",
+	"book": "res://character_creator/assets/sprites/book.png",
+	"hat": "res://character_creator/assets/sprites/hat.png",
+	"glove_l": "res://character_creator/assets/sprites/glove_l.png",
+	"glove_r": "res://character_creator/assets/sprites/glove_r.png",
+	"boot_l": "res://character_creator/assets/sprites/boot_l.png",
+	"boot_r": "res://character_creator/assets/sprites/boot_r.png",
+	"shirt": "res://character_creator/assets/sprites/shirt.png",
+	"pants": "res://character_creator/assets/sprites/pants.png",
+}
+
+# Default skin color
+const DEFAULT_SKIN_COLOR = Color(0.8, 0.6, 0.4, 1)
 
 func _ready() -> void:
 	_initialize_sprites()
 
 func _initialize_sprites() -> void:
-	# Create placeholder textures for all sprites
-	var sprites = [
-		main_body, left_arm, right_arm, left_leg, right_leg, neck,
-		face, eyes, nose, mouth, hair_base, hair_flow,
-		body_tattoo, left_arm_tattoo, right_arm_tattoo, left_leg_tattoo, right_leg_tattoo, face_tattoo,
-		main_body_clothes, left_arm_clothes, right_arm_clothes, left_leg_clothes, right_leg_clothes,
-		hair_accessory, left_arm_accessory, right_arm_accessory, left_leg_accessory, right_leg_accessory,
-		main_hand_tool, second_hand_tool
-	]
+	# Load actual sprite textures for all body parts
+	_load_sprite_texture(main_body, "body")
+	_load_sprite_texture(left_arm, "upper_arm_l")
+	_load_sprite_texture(right_arm, "upper_arm_r")
+	_load_sprite_texture(left_leg, "upper_leg_l")
+	_load_sprite_texture(right_leg, "upper_leg_r")
+	_load_sprite_texture(neck, "neck")
+	_load_sprite_texture(face, "face")
+	_load_sprite_texture(hair_base, "hair_base")
+	_load_sprite_texture(hair_flow, "hair_flow")
+	_load_sprite_texture(body_tattoo, "tattoo_body")
+	_load_sprite_texture(face_tattoo, "tattoo_face")
+	_load_sprite_texture(main_body_clothes, "shirt")
+	_load_sprite_texture(main_hand_tool, "sword")
+	_load_sprite_texture(second_hand_tool, "shield")
+	_load_sprite_texture(hair_accessory, "hat")
+	_load_sprite_texture(left_arm_accessory, "glove_l")
+	_load_sprite_texture(right_arm_accessory, "glove_r")
+	_load_sprite_texture(left_leg_accessory, "boot_l")
+	_load_sprite_texture(right_leg_accessory, "boot_r")
 	
-	for sprite in sprites:
-		if sprite:
-			sprite.texture = _create_placeholder_texture(32, 32, placeholder_color)
+	# Apply default skin color to body parts
+	_apply_default_skin_color()
 
-func _create_placeholder_texture(width: int, height: int, color: Color) -> ImageTexture:
-	var image = Image.create(width, height, false, Image.FORMAT_RGBA8)
-	image.fill(color)
-	return ImageTexture.create_from_image(image)
+func _load_sprite_texture(sprite: Sprite2D, sprite_name: String) -> void:
+	if sprite and SPRITE_PATHS.has(sprite_name):
+		var texture = load(SPRITE_PATHS[sprite_name])
+		if texture:
+			sprite.texture = texture
+
+func _apply_default_skin_color() -> void:
+	var skin_parts = [main_body, left_arm, right_arm, left_leg, right_leg, neck, face]
+	for part in skin_parts:
+		if part:
+			part.modulate = DEFAULT_SKIN_COLOR
 
 func update_from_data(data: CharacterData) -> void:
 	character_data = data
