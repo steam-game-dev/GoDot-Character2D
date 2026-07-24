@@ -1,0 +1,20 @@
+{
+	"dlc_id": "scifi_pack",
+	"dlc_name": "Sci-Fi Character Pack",
+	"version": "1.0",
+	"description": "Additional sci-fi themed character parts for robot race",
+	"parts": {
+		"hair": ["Antenna", "Visor", "Neural_Link", "Sensor_Array"],
+		"eyes": ["LED_Red", "LED_Blue", "LCD_Display", "Camera_Lens"],
+		"nose": ["Vent_Slits", "Sensor_Bump", "None", "Filter_Grid"],
+		"mouth": ["Speaker_Grill", "Voice_Box", "Sealed_Plate", "Data_Port"],
+		"face_tattoo": ["Circuit_Pattern", "Warning_Stripes", "Unit_Number", "Faction_Logo"],
+		"clothes_main_body": ["Power_Armor", "Enviro_Suit", "Nano_Suit", "Mech_Frame"],
+		"clothes_upper_limbs": ["Hydraulic_Arms", "Plating", "Tool_Mounts", "Weapon_Holster"],
+		"clothes_lower_limbs": ["Servo_Legs", "Treads", "Jump_Jets", "Stabilizers"],
+		"main_hand_tool": ["Plasma_Rifle", "Energy_Blade", "Tech_Tool", "Scanner"],
+		"second_hand_tool": ["Force_Shield", "Data_Pad", "Drone_Controller", "Power_Cell"]
+	},
+	"dependencies": [],
+	"download_url": ""
+}

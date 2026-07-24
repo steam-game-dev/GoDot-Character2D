@@ -15,7 +15,7 @@ config/description="This demo shows how to create a rigged and animated characte
 Godot's Skeleton2D node. There are several movement-related animations and
 there is a simple character controller that controls the animations."
 config/tags=PackedStringArray("2d", "animation", "demo", "official", "rendering")
-run/main_scene="res://level.tscn"
+run/main_scene="res://character_creator/character_creator.tscn"
 config/features=PackedStringArray("4.7")
 config/icon="res://icon.webp"
 

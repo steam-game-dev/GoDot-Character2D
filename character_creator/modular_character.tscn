@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://modular_character"]
+
+[ext_resource type="Script" path="res://character_creator/modular_character.gd" id="1"]
+
+[node name="ModularCharacter" type="Node2D"]
+script = ExtResource("1")
+
+[node name="BodyRoot" type="Node2D" parent="."]
+
+[node name="MainBody" type="Sprite2D" parent="BodyRoot"]
+position = Vector2(0, 0)
+scale = Vector2(1, 1)
+
+[node name="UpperLimbs" type="Node2D" parent="BodyRoot"]
+
+[node name="LeftArm" type="Sprite2D" parent="BodyRoot/UpperLimbs"]
+position = Vector2(-25, -10)
+
+[node name="RightArm" type="Sprite2D" parent="BodyRoot/UpperLimbs"]
+position = Vector2(25, -10)
+
+[node name="LowerLimbs" type="Node2D" parent="BodyRoot"]
+
+[node name="LeftLeg" type="Sprite2D" parent="BodyRoot/LowerLimbs"]
+position = Vector2(-15, 40)
+
+[node name="RightLeg" type="Sprite2D" parent="BodyRoot/LowerLimbs"]
+position = Vector2(15, 40)
+
+[node name="Neck" type="Sprite2D" parent="BodyRoot"]
+position = Vector2(0, -35)
+scale = Vector2(1, 1)
+
+[node name="Head" type="Node2D" parent="BodyRoot"]
+position = Vector2(0, -50)
+
+[node name="Face" type="Sprite2D" parent="BodyRoot/Head"]
+position = Vector2(0, 0)
+scale = Vector2(1, 1)
+
+[node name="Eyes" type="Sprite2D" parent="BodyRoot/Head"]
+position = Vector2(0, -5)
+
+[node name="Nose" type="Sprite2D" parent="BodyRoot/Head"]
+position = Vector2(0, 5)
+
+[node name="Mouth" type="Sprite2D" parent="BodyRoot/Head"]
+position = Vector2(0, 15)
+
+[node name="HairBase" type="Sprite2D" parent="BodyRoot/Head"]
+position = Vector2(0, -20)
+
+[node name="HairFlow" type="Sprite2D" parent="BodyRoot/Head"]
+position = Vector2(0, -10)
+
+[node name="Tattoos" type="Node2D" parent="BodyRoot"]
+
+[node name="BodyTattoo" type="Sprite2D" parent="BodyRoot/Tattoos"]
+position = Vector2(0, 0)
+
+[node name="UpperLimbsTattoo" type="Node2D" parent="BodyRoot/Tattoos"]
+
+[node name="LeftArmTattoo" type="Sprite2D" parent="BodyRoot/Tattoos/UpperLimbsTattoo"]
+position = Vector2(-25, -10)
+
+[node name="RightArmTattoo" type="Sprite2D" parent="BodyRoot/Tattoos/UpperLimbsTattoo"]
+position = Vector2(25, -10)
+
+[node name="LowerLimbsTattoo" type="Node2D" parent="BodyRoot/Tattoos"]
+
+[node name="LeftLegTattoo" type="Sprite2D" parent="BodyRoot/Tattoos/LowerLimbsTattoo"]
+position = Vector2(-15, 40)
+
+[node name="RightLegTattoo" type="Sprite2D" parent="BodyRoot/Tattoos/LowerLimbsTattoo"]
+position = Vector2(15, 40)
+
+[node name="FaceTattoo" type="Sprite2D" parent="BodyRoot/Head"]
+position = Vector2(0, 10)
+
+[node name="Clothes" type="Node2D" parent="BodyRoot"]
+
+[node name="MainBodyClothes" type="Sprite2D" parent="BodyRoot/Clothes"]
+position = Vector2(0, 0)
+
+[node name="UpperLimbsClothes" type="Node2D" parent="BodyRoot/Clothes"]
+
+[node name="LeftArmClothes" type="Sprite2D" parent="BodyRoot/Clothes/UpperLimbsClothes"]
+position = Vector2(-25, -10)
+
+[node name="RightArmClothes" type="Sprite2D" parent="BodyRoot/Clothes/UpperLimbsClothes"]
+position = Vector2(25, -10)
+
+[node name="LowerLimbsClothes" type="Node2D" parent="BodyRoot/Clothes"]
+
+[node name="LeftLegClothes" type="Sprite2D" parent="BodyRoot/Clothes/LowerLimbsClothes"]
+position = Vector2(-15, 40)
+
+[node name="RightLegClothes" type="Sprite2D" parent="BodyRoot/Clothes/LowerLimbsClothes"]
+position = Vector2(15, 40)
+
+[node name="Accessories" type="Node2D" parent="BodyRoot"]
+
+[node name="HairAccessory" type="Sprite2D" parent="BodyRoot/Accessories"]
+position = Vector2(0, -25)
+
+[node name="UpperLimbsAccessory" type="Node2D" parent="BodyRoot/Accessories"]
+
+[node name="LeftArmAccessory" type="Sprite2D" parent="BodyRoot/Accessories/UpperLimbsAccessory"]
+position = Vector2(-30, -5)
+
+[node name="RightArmAccessory" type="Sprite2D" parent="BodyRoot/Accessories/UpperLimbsAccessory"]
+position = Vector2(30, -5)
+
+[node name="LowerLimbsAccessory" type="Node2D" parent="BodyRoot/Accessories"]
+
+[node name="LeftLegAccessory" type="Sprite2D" parent="BodyRoot/Accessories/LowerLimbsAccessory"]
+position = Vector2(-18, 60)
+
+[node name="RightLegAccessory" type="Sprite2D" parent="BodyRoot/Accessories/LowerLimbsAccessory"]
+position = Vector2(18, 60)
+
+[node name="Tools" type="Node2D" parent="BodyRoot"]
+
+[node name="MainHandTool" type="Sprite2D" parent="BodyRoot/Tools"]
+position = Vector2(40, 10)
+
+[node name="SecondHandTool" type="Sprite2D" parent="BodyRoot/Tools"]
+position = Vector2(-40, 10)

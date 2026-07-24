@@ -1,0 +1,20 @@
+{
+	"dlc_id": "fantasy_pack",
+	"dlc_name": "Fantasy Character Pack",
+	"version": "1.0",
+	"description": "Additional fantasy-themed character parts",
+	"parts": {
+		"hair": ["Warrior", "Mage", "Elf_Long", "Dwarf_Braid"],
+		"eyes": ["Elven", "Orcish", "Mystic", "Dragon"],
+		"nose": ["Elven_Pointed", "Orcish_Flat", "Human_Average", "Dwarven_Broad"],
+		"mouth": ["Elven_Smile", "Orcish_Grin", "Neutral", "Fanged"],
+		"face_tattoo": ["Tribal", "Runic", "Clan_Mark", "War_Paint"],
+		"clothes_main_body": ["Plate_Armor", "Chain_Mail", "Leather_Vest", "Wizard_Robe"],
+		"clothes_upper_limbs": ["Gauntlets", "Chain_Sleeves", "Leather_Gloves", "Magic_Bracer"],
+		"clothes_lower_limbs": ["Plate_Legs", "Chain_Leggings", "Leather_Pants", "Robe_Bottom"],
+		"main_hand_tool": ["Greatsword", "Battle_Axe", "Magic_Staff", "Holy_Mace"],
+		"second_hand_tool": ["Tower_Shield", "Spell_Book", "Lantern", "Chalice"]
+	},
+	"dependencies": [],
+	"download_url": ""
+}
