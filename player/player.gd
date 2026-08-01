@@ -29,6 +29,18 @@ func _ready() -> void:
 	$AnimationTree.active = true
 
 
+func apply_character_data(data: CharacterData) -> void:
+	# Apply character customization data to the player sprite
+	# This function will be called when loading from the character creator
+	if data:
+		print("Applying character data to player: race=", data.race, ", skin_color=", data.skin_color)
+		# In a full implementation, you would update the sprite textures/colors here
+		# based on the character data (race, skin color, hair style, etc.)
+		# For now, we'll just update the modulate color as an example
+		if sprite:
+			sprite.modulate = data.skin_color
+
+
 func _physics_process(delta: float) -> void:
 	var is_jumping: bool = false
 	if Input.is_action_just_pressed(&"jump"):
