@@ -240,6 +240,7 @@ size_flags_horizontal = 4
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_horizontal = 4
+position = Vector2(0, 0)
 
 [node name="ButtonsContainer" type="HBoxContainer" parent="HSplitContainer/RightPanel"]
 layout_mode = 2

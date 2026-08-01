@@ -33,6 +33,9 @@ var character_data: CharacterData
 var available_parts: Dictionary = {}
 
 func _ready() -> void:
+	# Set up responsive scaling based on viewport size
+	_setup_responsive_scaling()
+	
 	character_data = CharacterData.new()
 	_setup_race_options()
 	_setup_sliders()
@@ -41,6 +44,37 @@ func _ready() -> void:
 	_populate_option_buttons()
 	_connect_signals()
 	_update_character_preview()
+
+func _setup_responsive_scaling() -> void:
+	# Get the viewport size and scale UI accordingly
+	var viewport_size = get_viewport().get_visible_rect().size
+	var base_width = 1920.0
+	var base_height = 1080.0
+	
+	# Calculate scale factor based on the smaller dimension ratio
+	var width_scale = viewport_size.x / base_width
+	var height_scale = viewport_size.y / base_height
+	var scale_factor = min(width_scale, height_scale)
+	
+	# Ensure minimum scale of 0.5 and maximum of 2.0
+	scale_factor = clamp(scale_factor, 0.5, 2.0)
+	
+	# Apply scale to the entire UI
+	scale = Vector2(scale_factor, scale_factor)
+	
+	# Adjust margins for larger screens
+	if scale_factor > 1.0:
+		var margin = 20.0 * scale_factor
+		$HSplitContainer.offset_left = margin
+		$HSplitContainer.offset_top = margin
+		$HSplitContainer.offset_right = -margin
+		$HSplitContainer.offset_bottom = -margin
+	
+	# Center the character preview in the right panel
+	# The modular character scene has its own internal positioning
+	var preview_node = $HSplitContainer/RightPanel/CharacterPreview
+	if preview_node:
+		preview_node.position = Vector2.ZERO
 
 func _setup_race_options() -> void:
 	race_option_button.clear()

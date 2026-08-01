@@ -18,16 +18,10 @@ extends Node2D
 
 # Tattoo nodes
 @onready var body_tattoo: Sprite2D = $BodyRoot/Tattoos/BodyTattoo
-@onready var left_arm_tattoo: Sprite2D = $BodyRoot/Tattoos/UpperLimbsTattoo/LeftArmTattoo
-@onready var right_arm_tattoo: Sprite2D = $BodyRoot/Tattoos/UpperLimbsTattoo/RightArmTattoo
-@onready var left_leg_tattoo: Sprite2D = $BodyRoot/Tattoos/LowerLimbsTattoo/LeftLegTattoo
-@onready var right_leg_tattoo: Sprite2D = $BodyRoot/Tattoos/LowerLimbsTattoo/RightLegTattoo
 @onready var face_tattoo: Sprite2D = $BodyRoot/Head/FaceTattoo
 
 # Clothes nodes
 @onready var main_body_clothes: Sprite2D = $BodyRoot/Clothes/MainBodyClothes
-@onready var left_arm_clothes: Sprite2D = $BodyRoot/Clothes/UpperLimbsClothes/LeftArmClothes
-@onready var right_arm_clothes: Sprite2D = $BodyRoot/Clothes/UpperLimbsClothes/RightArmClothes
 @onready var left_leg_clothes: Sprite2D = $BodyRoot/Clothes/LowerLimbsClothes/LeftLegClothes
 @onready var right_leg_clothes: Sprite2D = $BodyRoot/Clothes/LowerLimbsClothes/RightLegClothes
 
@@ -43,44 +37,31 @@ extends Node2D
 @onready var second_hand_tool: Sprite2D = $BodyRoot/Tools/SecondHandTool
 
 var character_data: CharacterData
+var facing_direction: int = 1  # 1 = right, -1 = left
 
-# Sprite texture paths
+# Sprite texture paths (30-degree angled sprites)
 const SPRITE_PATHS = {
-	"body": "res://character_creator/assets/sprites/body.png",
-	"head": "res://character_creator/assets/sprites/head.png",
-	"neck": "res://character_creator/assets/sprites/neck.png",
-	"face": "res://character_creator/assets/sprites/face.png",
-	"upper_arm_l": "res://character_creator/assets/sprites/upper_arm_l.png",
-	"upper_arm_r": "res://character_creator/assets/sprites/upper_arm_r.png",
-	"lower_arm_l": "res://character_creator/assets/sprites/lower_arm_l.png",
-	"lower_arm_r": "res://character_creator/assets/sprites/lower_arm_r.png",
-	"hand_l": "res://character_creator/assets/sprites/hand_l.png",
-	"hand_r": "res://character_creator/assets/sprites/hand_r.png",
-	"upper_leg_l": "res://character_creator/assets/sprites/upper_leg_l.png",
-	"upper_leg_r": "res://character_creator/assets/sprites/upper_leg_r.png",
-	"lower_leg_l": "res://character_creator/assets/sprites/lower_leg_l.png",
-	"lower_leg_r": "res://character_creator/assets/sprites/lower_leg_r.png",
-	"foot_l": "res://character_creator/assets/sprites/foot_l.png",
-	"foot_r": "res://character_creator/assets/sprites/foot_r.png",
-	"hair_base": "res://character_creator/assets/sprites/hair_base.png",
-	"hair_flow": "res://character_creator/assets/sprites/hair_flow.png",
-	"eye_l": "res://character_creator/assets/sprites/eye_l.png",
-	"eye_r": "res://character_creator/assets/sprites/eye_r.png",
-	"nose": "res://character_creator/assets/sprites/nose.png",
-	"mouth": "res://character_creator/assets/sprites/mouth.png",
-	"tattoo_body": "res://character_creator/assets/sprites/tattoo_body.png",
-	"tattoo_face": "res://character_creator/assets/sprites/tattoo_face.png",
-	"sword": "res://character_creator/assets/sprites/sword.png",
-	"shield": "res://character_creator/assets/sprites/shield.png",
-	"staff": "res://character_creator/assets/sprites/staff.png",
-	"book": "res://character_creator/assets/sprites/book.png",
-	"hat": "res://character_creator/assets/sprites/hat.png",
-	"glove_l": "res://character_creator/assets/sprites/glove_l.png",
-	"glove_r": "res://character_creator/assets/sprites/glove_r.png",
-	"boot_l": "res://character_creator/assets/sprites/boot_l.png",
-	"boot_r": "res://character_creator/assets/sprites/boot_r.png",
-	"shirt": "res://character_creator/assets/sprites/shirt.png",
-	"pants": "res://character_creator/assets/sprites/pants.png",
+	"body": "res://character_creator/assets/sprites_30deg/body.png",
+	"arm_smooth": "res://character_creator/assets/sprites_30deg/arm_smooth.png",
+	"leg": "res://character_creator/assets/sprites_30deg/leg.png",
+	"neck": "res://character_creator/assets/sprites_30deg/neck.png",
+	"face": "res://character_creator/assets/sprites_30deg/face.png",
+	"hair_base": "res://character_creator/assets/sprites_30deg/hair_base.png",
+	"hair_flow": "res://character_creator/assets/sprites_30deg/hair_flow.png",
+	"eye": "res://character_creator/assets/sprites_30deg/eye.png",
+	"nose": "res://character_creator/assets/sprites_30deg/nose.png",
+	"mouth": "res://character_creator/assets/sprites_30deg/mouth.png",
+	"tattoo_body": "res://character_creator/assets/sprites_30deg/tattoo_body.png",
+	"tattoo_face": "res://character_creator/assets/sprites_30deg/tattoo_face.png",
+	"sword": "res://character_creator/assets/sprites_30deg/sword.png",
+	"shield": "res://character_creator/assets/sprites_30deg/shield.png",
+	"staff": "res://character_creator/assets/sprites_30deg/staff.png",
+	"book": "res://character_creator/assets/sprites_30deg/book.png",
+	"hat": "res://character_creator/assets/sprites_30deg/hat.png",
+	"glove": "res://character_creator/assets/sprites_30deg/glove.png",
+	"boot": "res://character_creator/assets/sprites_30deg/boot.png",
+	"shirt": "res://character_creator/assets/sprites_30deg/shirt.png",
+	"pants": "res://character_creator/assets/sprites_30deg/pants.png",
 }
 
 # Default skin color
@@ -92,10 +73,10 @@ func _ready() -> void:
 func _initialize_sprites() -> void:
 	# Load actual sprite textures for all body parts
 	_load_sprite_texture(main_body, "body")
-	_load_sprite_texture(left_arm, "upper_arm_l")
-	_load_sprite_texture(right_arm, "upper_arm_r")
-	_load_sprite_texture(left_leg, "upper_leg_l")
-	_load_sprite_texture(right_leg, "upper_leg_r")
+	_load_sprite_texture(left_arm, "arm_smooth")
+	_load_sprite_texture(right_arm, "arm_smooth")
+	_load_sprite_texture(left_leg, "leg")
+	_load_sprite_texture(right_leg, "leg")
 	_load_sprite_texture(neck, "neck")
 	_load_sprite_texture(face, "face")
 	_load_sprite_texture(hair_base, "hair_base")
@@ -106,10 +87,10 @@ func _initialize_sprites() -> void:
 	_load_sprite_texture(main_hand_tool, "sword")
 	_load_sprite_texture(second_hand_tool, "shield")
 	_load_sprite_texture(hair_accessory, "hat")
-	_load_sprite_texture(left_arm_accessory, "glove_l")
-	_load_sprite_texture(right_arm_accessory, "glove_r")
-	_load_sprite_texture(left_leg_accessory, "boot_l")
-	_load_sprite_texture(right_leg_accessory, "boot_r")
+	_load_sprite_texture(left_arm_accessory, "glove")
+	_load_sprite_texture(right_arm_accessory, "glove")
+	_load_sprite_texture(left_leg_accessory, "boot")
+	_load_sprite_texture(right_leg_accessory, "boot")
 	
 	# Apply default skin color to body parts
 	_apply_default_skin_color()
@@ -126,6 +107,17 @@ func _apply_default_skin_color() -> void:
 		if part:
 			part.modulate = DEFAULT_SKIN_COLOR
 
+func set_facing(direction: int) -> void:
+	"""Set character facing direction (1 = right, -1 = left)"""
+	facing_direction = direction
+	scale.x = abs(scale.x) * direction
+	
+	# Flip tools appropriately
+	if main_hand_tool:
+		main_hand_tool.flip_h = (direction < 0)
+	if second_hand_tool:
+		second_hand_tool.flip_h = (direction < 0)
+
 func update_from_data(data: CharacterData) -> void:
 	character_data = data
 	_apply_body_shapes()
@@ -141,7 +133,7 @@ func _apply_body_shapes() -> void:
 	if not character_data:
 		return
 	
-	# Apply scale modifiers to body parts
+	# Apply scale modifiers to body parts (80% to 120%)
 	if main_body:
 		main_body.scale = Vector2(character_data.main_body_scale, character_data.main_body_scale)
 	
@@ -160,6 +152,9 @@ func _apply_body_shapes() -> void:
 	
 	if face:
 		face.scale = Vector2(character_data.face_scale, character_data.face_scale)
+		# Scale hair base with head/face size
+		if hair_base:
+			hair_base.scale = Vector2(character_data.face_scale, character_data.face_scale)
 
 func _apply_skin_color() -> void:
 	if not character_data:
